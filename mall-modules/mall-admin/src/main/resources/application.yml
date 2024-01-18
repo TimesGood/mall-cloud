@@ -1,0 +1,174 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: mall-admin
+  # 解决Swagger与2.6以上springboot不兼容
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      config:
+        server-addr: http://localhost:8848
+        file-extension: yaml
+  #数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #serverTimezone=GMT%2B8时区，GMT%2B8北京东八区，也可以设置Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        enabled: true
+        url-pattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        enabled: true
+        url-pattern: "/druid/**"
+        login-username: admin
+        login-password: admin
+  #配置redis缓存
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+#    password: # Redis服务器连接密码（默认为空）
+    jedis:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+    timeout: 3000ms # 连接超时时间（毫秒）
+
+#指定mybatis的mapper xml文件扫描路径
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*.xml
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+    - classpath*:com/**/dao/*.xml
+#swagger配置
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+#springboot日志输出级别
+logging:
+  level:
+    root: info
+    com.example.system: debug
+
+feign:
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+dubbo:
+  application:
+    logger: slf4j
+    # 元数据中心 local 本地 remote 远程 这里使用远程便于其他服务获取
+    metadataType: remote
+    # 可选值 interface、instance、all，默认是 all，即接口级地址、应用级地址都注册
+    register-mode: instance
+    service-discovery:
+      # FORCE_INTERFACE，只消费接口级地址，如无地址则报错，单订阅 2.x 地址
+      # APPLICATION_FIRST，智能决策接口级/应用级地址，双订阅
+      # FORCE_APPLICATION，只消费应用级地址，如无地址则报错，单订阅 3.x 地址
+      migration: FORCE_APPLICATION
+    qos-enable: false
+  protocol:
+    # 设置为 tri 即可使用 Triple 3.0 新协议
+    # 性能对比 dubbo 协议并没有提升 但基于 http2 用于多语言异构等 http 交互场景
+    # 使用 dubbo 协议通信
+    name: dubbo
+    # dubbo 协议端口(-1表示自增端口,从20880开始)
+    port: -1
+    # 指定dubbo协议注册ip
+    # host: 192.168.0.100
+  # 注册中心配置
+  registry:
+    address: nacos://localhost:8848
+    group: DUBBO_GROUP
+    parameters:
+      namespace: public
+  # 消费者相关配置
+  consumer:
+    # 结果缓存(LRU算法)
+    # 会有数据不一致问题 建议在注解局部开启
+    cache: false
+    # 支持校验注解
+    validation: true
+    # 超时时间
+    timeout: 3000
+    # 初始化检查
+    check: false
+  scan:
+    # 接口实现类扫描
+    base-packages: com.mall.*.dubbo
+  # 自定义配置
+  custom:
+    # 全局请求log
+    request-log: true
+    # info 基础信息 param 参数信息 full 全部
+    log-level: info
+#***********************************************框架内自定义属性***********************************************
+# 自定义redis属性
+redis:
+  key:
+    #前缀+手机号
+    #authCode前缀
+    prefix:
+      authCode: "portal:authCode:"
+    #验证码失效时间
+    expire:
+      authCode: 120 # 验证码超期时间
+    admin: 'ums:admin'
+    resourceList: 'ums:resourceList'
+  #缓存键值：用户相关：database:admin:adminId
+  #缓存键值：资源相关：database:resourceList:adminId
+  database: mall
+  #缓存失效时间
+  expire:
+    common: 86400 # 24小时
+
+# 自定义jwt属性
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  tokenPrefix: Bearer  #JWT负载前缀
+  secret: mySecret #JWT加解密使用的密钥
+  expiration: 30 #JWT的超期限时间(单位分)
+# 自定义授权白名单
+secure:
+  ignore:
+    urls:
+      - /swagger**/**
+      - /**/v2/api-docs
+      - /**/v3/api-docs
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /doc.html
+      - /webjars/*
+      - /index.html"
+      - /esProduct/**"
+      - /sso/**"
+      - /actuator/**
+      - /druid/**
+      - /toLogin"
+      - /error
+logstash:
+  host: localhost
+  enableInnerLog: false

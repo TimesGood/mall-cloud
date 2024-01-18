@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.mall</groupId>
+		<artifactId>mall-modules</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>mall-admin</artifactId>
+	<packaging>jar</packaging>
+
+	<name>mall-admin</name>
+	<description>mall-admin</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-mbg</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-common-core</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-common-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-common-swagger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-common-mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-common-dubbo</artifactId>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.mall</groupId>-->
+<!--			<artifactId>mall-common-security</artifactId>-->
+<!--			-->
+<!--		</dependency>-->
+		<!--nacos-->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+		</dependency>
+		<!--druid连接池-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+		</dependency>
+		<!--hutool工具包-->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-json</artifactId>
+		</dependency>
+		<!--api-->
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-api-auth</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mall</groupId>
+			<artifactId>mall-api-admin</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.10</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.mall</groupId>
+    <artifactId>mall-cloud</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>mall-cloud</name>
+    <description>mall-cloud</description>
+
+    <modules>
+        <module>mall-common</module>
+        <module>mall-api</module>
+        <module>mall-modules</module>
+        <module>mall-gateway</module>
+        <module>mall-auth</module>
+    </modules>
+
+    <properties>
+        <revision>1.0.0</revision>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version><!--jdk版本-->
+        <skipTests>true</skipTests><!--当使用spring-boot-maven-plugin打包时，会自动执行test单元测试，设为true取消执行test-->
+        <docker.host>http://192.168.3.101:2375</docker.host><!--远程docker地址-->
+        <docker.maven.plugin.version>0.40.2</docker.maven.plugin.version><!--docker打包插件-->
+        <spring-boot.version>2.7.13</spring-boot.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <spring-cloud-starter-oauth2.version>2.2.5.RELEASE</spring-cloud-starter-oauth2.version>
+        <pagehelper.version>5.3.0</pagehelper.version><!--分页插件-->
+        <druid.version>1.2.14</druid.version><!--数据库驱动-->
+        <springfox-swagger.version>3.0.0</springfox-swagger.version><!--swagger-->
+        <knife4j.version>3.0.0</knife4j.version><!--swagger增强-->
+        <mybatis-generator.version>1.4.0</mybatis-generator.version><!--mybatis代码生成器-->
+        <mybatis.version>3.5.10</mybatis.version><!--mybatis-->
+        <mybatis-spring.version>2.0.7</mybatis-spring.version>
+        <mysql-connector.version>8.0.29</mysql-connector.version><!--mysql连接池-->
+        <jjwt.version>0.9.1</jjwt.version><!--jwt-->
+        <nimbus-jose-jwt.version>9.23</nimbus-jose-jwt.version>
+        <hibernate.version>6.2.0.Final</hibernate.version><!--参数校验-->
+        <jaxb-api.version>2.3.1</jaxb-api.version><!--解决java11不兼容的问题-->
+        <logstash-logback.version>7.2</logstash-logback.version><!--日志-->
+        <fastjson.version>2.0.28</fastjson.version><!--alibaba Json解析-->
+        <redisson.version>3.20.1</redisson.version><!--redisson-->
+        <hutool.version>5.8.18</hutool.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version><!--对象映射-->
+    </properties>
+
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <!--lombok代码功能增强，通过注解省略get、set等方法，以及一些其他功能注解的使用-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--通用模块依赖配置-->
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>mall-common-bom</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--api模块依赖配置-->
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>mall-api-bom</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringCloud 微服务 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- SpringCloud Alibaba 微服务 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- SpringBoot 依赖配置 -->
+            <!--            <dependency>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-dependencies</artifactId>-->
+            <!--                <version>${spring-boot.version}</version>-->
+            <!--                <type>pom</type>-->
+            <!--                <scope>import</scope>-->
+            <!--            </dependency>-->
+            <!--MyBatis分页插件starter-->
+            <!--OAuth2-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-starter-oauth2.version}</version>
+            </dependency>
+            <!--MyBatis分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <!--集成druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!--Swagger-UI API文档生产工具-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+            <!--Swagger增强-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!-- MyBatis-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- MyBatis-Spring-->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <!-- MyBatis 代码生成器 -->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis-generator.version}</version>
+            </dependency>
+            <!--Mysql数据库驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <!--JWT(Json Web Token)登录支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!--JWT(Json Web Token)登录支持-->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
+            </dependency>
+            <!--Hutool Java工具包-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--参数校验-->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+            <!--集成logstash-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback.version}</version>
+            </dependency>
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!--redisson-->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <!--mapstruct对象映射-->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <!--解决lombok与mapstruct冲突报找不到符号变量的错误-->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.10</version>
+                <configuration>
+                    <!--解决打包时报Unable to find main class。取消寻找模块main方法-->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <!--使用maven创建docker镜像-->
+            <!--			<plugin>-->
+            <!--				<groupId>io.fabric8</groupId>-->
+            <!--				<artifactId>docker-maven-plugin</artifactId>-->
+            <!--				<version>${docker.maven.plugin.version}</version>-->
+            <!--				<executions>-->
+            <!--					&lt;!&ndash;如果想在项目打包时构建镜像添加&ndash;&gt;-->
+            <!--					<execution>-->
+            <!--						<id>build-image</id>-->
+            <!--						<phase>package</phase>-->
+            <!--						<goals>-->
+            <!--							<goal>build</goal>-->
+            <!--						</goals>-->
+            <!--					</execution>-->
+            <!--				</executions>-->
+            <!--				<configuration>-->
+            <!--					&lt;!&ndash; Docker 远程管理地址&ndash;&gt;-->
+            <!--					<dockerHost>${docker.host}</dockerHost>-->
+            <!--					<images>-->
+            <!--						<image>-->
+            <!--							&lt;!&ndash;定义镜像名称&ndash;&gt;-->
+            <!--							<name>system/${project.name}:${project.version}</name>-->
+            <!--							&lt;!&ndash;定义镜像构建行为&ndash;&gt;-->
+            <!--							<build>-->
+            <!--								&lt;!&ndash;定义基础镜像&ndash;&gt;-->
+            <!--								<from>openjdk:8</from>-->
+            <!--								<args>-->
+            <!--									<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>-->
+            <!--								</args>-->
+            <!--								&lt;!&ndash;定义哪些文件拷贝到容器中&ndash;&gt;-->
+            <!--								<assembly>-->
+            <!--									&lt;!&ndash;定义拷贝到容器的目录&ndash;&gt;-->
+            <!--									<targetDir>/</targetDir>-->
+            <!--									&lt;!&ndash;只拷贝生成的jar包&ndash;&gt;-->
+            <!--									<descriptorRef>artifact</descriptorRef>-->
+            <!--								</assembly>-->
+            <!--								&lt;!&ndash;定义容器启动命令&ndash;&gt;-->
+            <!--								<entryPoint>["java", "-jar","-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]</entryPoint>-->
+            <!--								&lt;!&ndash;定义维护者&ndash;&gt;-->
+            <!--								<maintainer>zhangwenke</maintainer>-->
+            <!--							</build>-->
+            <!--						</image>-->
+            <!--					</images>-->
+            <!--				</configuration>-->
+            <!--			</plugin>-->
+        </plugins>
+    </build>
+
+</project>
