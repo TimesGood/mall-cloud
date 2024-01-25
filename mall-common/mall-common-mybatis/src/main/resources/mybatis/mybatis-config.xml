@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTDConfig3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <plugins>
+        <plugin interceptor="com.mall.mybatis.interceptor.MybatisInsertAutoFillPlugin">
+            <property name="createTime" value="T(java.time.LocalDateTime).now()"/>
+            <property name="updateTime" value="T(java.time.LocalDateTime).now()"/>
+        </plugin>
+    </plugins>
+</configuration>

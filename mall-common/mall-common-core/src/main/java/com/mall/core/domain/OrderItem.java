@@ -1,4 +1,4 @@
-package com.mall.mybatis.domain;
+package com.mall.core.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

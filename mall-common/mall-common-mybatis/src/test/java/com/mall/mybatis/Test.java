@@ -1,7 +1,7 @@
 package com.mall.mybatis;
 
 import com.github.pagehelper.Page;
-import com.mall.mybatis.domain.OrderItem;
+import com.mall.core.domain.OrderItem;
 import com.mall.mybatis.page.PageQuery;
 
 public class Test {

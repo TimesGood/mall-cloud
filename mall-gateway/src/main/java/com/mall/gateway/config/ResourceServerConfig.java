@@ -37,7 +37,8 @@ public class ResourceServerConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         //开启jwt验证
-        http.oauth2ResourceServer().jwt()
+        http.oauth2ResourceServer()
+                .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
         //自定义处理JWT请求头过期或签名错误的结果
         http.oauth2ResourceServer().authenticationEntryPoint(restAuthenticationEntryPoint);
@@ -54,6 +55,7 @@ public class ResourceServerConfig {
     }
 
     /**
+     * 因为auth模块颁发的jwt某些属性与默认转换器的某些属性对应不上，需要将默认转换器的属性修改为与auth模块颁发的一致
      * 将Authentication转换为jwt中的payload
      * @return
      */

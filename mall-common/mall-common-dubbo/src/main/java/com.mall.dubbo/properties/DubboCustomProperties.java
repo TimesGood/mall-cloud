@@ -7,8 +7,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * 自定义配置
- *
- * @author Lion Li
  */
 @Data
 @RefreshScope

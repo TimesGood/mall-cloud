@@ -1,2 +1,1 @@
-com.mall.security.config.SpringSecurityWebConfig
-com.mall.security.config.IgnoreUrlsConfig
+com.mall.security.config.ResourceServerConfig

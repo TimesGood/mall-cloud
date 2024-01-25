@@ -1,23 +1,29 @@
 package com.mall.core.domain;
 
 import com.github.pagehelper.PageInfo;
+import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class Page<T> {
-    private Integer pageNum;
-    private Integer pageSize;
-    private Integer totalPages;
-    private Long total;
-    private List<T> data;
+    private Integer pageNum; //页码
+    private Integer pageSize; //每页大小
+    private Integer totalPages; //总页数
+    private Long total; //总数
+    private List<T> data; //数据
+
+    @Setter
+    protected List<OrderItem> orders = new ArrayList<>(); //排序字段
 
     /**
      * 将PageHelper分页后数据格式化
      */
     public static <T> Page<T> restPage(List<T> list) {
-        Page<T> result = new Page<T>();
-        PageInfo<T> pageInfo = new PageInfo<T>(list);
+        Page<T> result = new Page<>();
+        PageInfo<T> pageInfo = new PageInfo<>(list);
         result.setTotalPages(pageInfo.getPages());
         result.setPageNum(pageInfo.getPageNum());
         result.setPageSize(pageInfo.getPageSize());
@@ -77,7 +83,31 @@ public class Page<T> {
     public void setTotal(Long total) {
         this.total = total;
     }
+    /**
+     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
+     *
+     * @param items 条件
+     * @return 返回分页参数本身
+     */
+    public Page<T> addOrder(OrderItem... items) {
+        orders.addAll(Arrays.asList(items));
+        return this;
+    }
 
+    /**
+     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
+     *
+     * @param items 条件
+     * @return 返回分页参数本身
+     */
+    public Page<T> addOrder(List<OrderItem> items) {
+        orders.addAll(items);
+        return this;
+    }
+
+    public List<OrderItem> orders() {
+        return this.orders;
+    }
     @Override
     public String toString() {
         return "CommonPage{" +

@@ -1,6 +1,7 @@
 package com.mall.gen.service;
 
 
+import com.mall.core.domain.Page;
 import com.mall.gen.domain.GenTable;
 import com.mall.gen.domain.GenTableColumn;
 import com.mall.mybatis.page.PageQuery;
@@ -14,16 +15,20 @@ import java.util.Map;
 public interface IGenTableService {
 
     /**
-     * 查询业务字段列表
+     * 查询业务列表
      *
-     * @param tableId 业务字段编号
-     * @return 业务字段集合
+     * @param genTable 业务信息
+     * @return 业务集合
      */
-    List<GenTableColumn> selectGenTableColumnListByTableId(Long tableId);
+    Page<GenTable> selectPageGenTableList(GenTable genTable, PageQuery pageQuery);
 
-    List<GenTable> selectPageGenTableList(GenTable genTable, PageQuery pageQuery);
-
-    List<GenTable> selectPageDbTableList(GenTable genTable, PageQuery pageQuery);
+    /**
+     * 查询据库列表
+     *
+     * @param genTable 业务信息
+     * @return 数据库表集合
+     */
+    Page<GenTable> selectPageDbTableList(GenTable genTable, PageQuery pageQuery);
 
     /**
      * 查询据库列表
