@@ -16,6 +16,8 @@ mall
 ├── ├──mall-common-oss -- oss对象存储模块
 ├── ├──mall-common-redis -- 缓存
 ├── ├──mall-common-swagger -- swagger接口文档
+├── ├──mall-common-rabbitmq -- 消息队列模块
+├── ├──mall-common-idempotent -- 解决幂等
 ├── mall-gateway -- 网关鉴权
 ├── mall-auth -- 登陆认证模块
 ├── mall-modules -- 其他微服务管理模块
