@@ -49,5 +49,13 @@ public interface AuthConstant {
      * 用户信息Http请求头
      */
     String USER_TOKEN_HEADER = "user";
+    /**
+     * 网关key请求头
+     */
+    String GATEWAY_KEY_HEADER = "gateway-key";
+    /**
+     * 网关key
+     */
+    String GATEWAY_KEY = "zwk";
 
 }

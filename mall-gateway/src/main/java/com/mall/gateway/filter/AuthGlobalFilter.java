@@ -38,6 +38,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             LOGGER.info("AuthGlobalFilter.filter() user:{}",userStr);
             ServerHttpRequest request = exchange.getRequest().mutate().header(AuthConstant.USER_TOKEN_HEADER, userStr).build();
             exchange = exchange.mutate().request(request).build();
+
+            // 添加gatewayKey，防止下游接口直接被访问
+            ServerHttpRequest.Builder mutate = request.mutate();
+            mutate.header(AuthConstant.GATEWAY_KEY_HEADER, AuthConstant.GATEWAY_KEY);
+            return chain.filter(exchange.mutate().request(mutate.build()).build());
         } catch (ParseException e) {
             e.printStackTrace();
         }
