@@ -40,6 +40,21 @@
                 <artifactId>mall-common-swagger</artifactId>
                 <version>1.0.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>mall-common-oss</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>mall-common-idempotent</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mall</groupId>
+                <artifactId>mall-common-rabbitmq</artifactId>
+                <version>1.0.0</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

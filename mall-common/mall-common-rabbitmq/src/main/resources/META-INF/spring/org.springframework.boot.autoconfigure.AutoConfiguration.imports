@@ -1,0 +1,3 @@
+com.ruoyi.common.rabbitmq.config.RabbitMqAckConfig
+com.ruoyi.common.rabbitmq.config.RabbitConfiguration
+com.ruoyi.common.rabbitmq.producer.ProducerServiceImpl

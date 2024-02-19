@@ -21,6 +21,8 @@
         <module>mall-common-dubbo</module>
         <module>mall-common-security</module>
         <module>mall-common-oss</module>
+        <module>mall-common-rabbitmq</module>
+        <module>mall-common-idempotent</module>
     </modules>
 
 </project>
