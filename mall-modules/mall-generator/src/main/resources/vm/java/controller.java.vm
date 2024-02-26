@@ -1,0 +1,149 @@
+package ${packageName}.controller;
+
+import java.util.List;
+
+import com.mall.core.domain.R;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.enums.BusinessType;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.I${ClassName}Service;
+import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+#if($table.crud || $table.sub)
+import com.ruoyi.common.core.page.TableDataInfo;
+#elseif($table.tree)
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.core.domain.Ztree;
+#end
+
+/**
+ * ${functionName}Controller
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Controller
+@RequestMapping("/${moduleName}/${businessName}")
+public class ${ClassName}Controller extends BaseController
+{
+    @Autowired
+    private I${ClassName}Service ${className}Service;
+
+
+#if($table.crud || $table.sub)
+    /**
+     * 查询${functionName}列表
+     */
+    @RequiresPermissions("${permissionPrefix}:list")
+    @PostMapping("/list")
+    @ResponseBody
+    public R<${ClassName}> list(${ClassName} ${className})
+    {
+        startPage();
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        return R.ok(list);
+    }
+#elseif($table.tree)
+    /**
+     * 查询${functionName}树列表
+     */
+    @RequiresPermissions("${permissionPrefix}:list")
+    @PostMapping("/list")
+    @ResponseBody
+    public R<${ClassName}> list(${ClassName} ${className})
+    {
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        return R.ok(list);
+    }
+#end
+
+    /**
+     * 导出${functionName}列表
+     */
+    @RequiresPermissions("${permissionPrefix}:export")
+    @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    @ResponseBody
+    public AjaxResult export(${ClassName} ${className})
+    {
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}.class);
+        return util.exportExcel(list, "${functionName}数据");
+    }
+
+    /**
+     * 新增保存${functionName}
+     */
+    @RequiresPermissions("${permissionPrefix}:add")
+    @Log(title = "${functionName}", businessType = BusinessType.INSERT)
+    @PostMapping("/add")
+    @ResponseBody
+    public R addSave(${ClassName} ${className})
+    {
+        ${className}Service.insert${ClassName}(${className})
+        return R.ok();
+    }
+
+    /**
+     * 修改保存${functionName}
+     */
+    @RequiresPermissions("${permissionPrefix}:edit")
+    @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @ResponseBody
+    public R editSave(${ClassName} ${className})
+    {
+        ${className}Service.update${ClassName}(${className})
+        return R.ok();
+    }
+
+#if($table.crud || $table.sub)
+    /**
+     * 删除${functionName}
+     */
+    @RequiresPermissions("${permissionPrefix}:remove")
+    @Log(title = "${functionName}", businessType = BusinessType.DELETE)
+    @PostMapping( "/remove")
+    @ResponseBody
+    public R remove(String[] ids)
+    {
+        ${className}Service.delete${ClassName}By${pkColumn.capJavaField}s(ids)
+        return R.ok();
+    }
+#elseif($table.tree)
+    /**
+     * 删除
+     */
+    @RequiresPermissions("${permissionPrefix}:remove")
+    @Log(title = "${functionName}", businessType = BusinessType.DELETE)
+    @GetMapping("/remove/{${pkColumn.javaField}}")
+    @ResponseBody
+    public R remove(@PathVariable("${pkColumn.javaField}") ${pkColumn.javaType} ${pkColumn.javaField})
+    {
+        ${className}Service.delete${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField})
+        return R.ok();
+    }
+#end
+#if($table.tree)
+    /**
+     * 加载${functionName}树列表
+     */
+    @GetMapping("/treeData")
+    @ResponseBody
+    public R<List<Ztree>> treeData()
+    {
+        List<Ztree> ztrees = ${className}Service.select${ClassName}Tree();
+        return R.ok(ztrees);
+    }
+#end
+}

@@ -7,7 +7,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson2.JSON;
 import com.mall.core.constant.AuthConstant;
 import com.mall.core.domain.R;
-import com.mall.core.exception.ApiException;
+import com.mall.core.exception.ServiceException;
 import com.mall.redis.utils.RedissonUtils;
 import com.ruoyi.common.idempotent.annotation.RepeatSubmit;
 import org.aspectj.lang.JoinPoint;
@@ -44,7 +44,7 @@ public class RepeatSubmitAspect {
         long interval = repeatSubmit.timeUnit().toMillis(repeatSubmit.interval());
 
         if (interval < 1000) {
-            throw new ApiException("重复提交间隔时间不能小于'1'秒");
+            throw new ServiceException("重复提交间隔时间不能小于'1'秒");
         }
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String nowParams = argsArrayToString(point.getArgs());
@@ -65,7 +65,7 @@ public class RepeatSubmitAspect {
             if (StrUtil.startWith(message, "{") && StrUtil.endWith(message, "}")) {
                 message = StrUtil.sub(message, 1, message.length() - 1);
             }
-            throw new ApiException(message);
+            throw new ServiceException(message);
         }
     }
 

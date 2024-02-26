@@ -15,9 +15,6 @@ public class Page<T> {
     private Long total; //总数
     private List<T> data; //数据
 
-    @Setter
-    protected List<OrderItem> orders = new ArrayList<>(); //排序字段
-
     /**
      * 将PageHelper分页后数据格式化
      */
@@ -82,31 +79,6 @@ public class Page<T> {
 
     public void setTotal(Long total) {
         this.total = total;
-    }
-    /**
-     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
-     *
-     * @param items 条件
-     * @return 返回分页参数本身
-     */
-    public Page<T> addOrder(OrderItem... items) {
-        orders.addAll(Arrays.asList(items));
-        return this;
-    }
-
-    /**
-     * 添加新的排序条件，构造条件可以使用工厂：{@link OrderItem#build(String, boolean)}
-     *
-     * @param items 条件
-     * @return 返回分页参数本身
-     */
-    public Page<T> addOrder(List<OrderItem> items) {
-        orders.addAll(items);
-        return this;
-    }
-
-    public List<OrderItem> orders() {
-        return this.orders;
     }
     @Override
     public String toString() {

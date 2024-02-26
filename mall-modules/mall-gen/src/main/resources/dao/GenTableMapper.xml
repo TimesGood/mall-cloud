@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mall.gen.dao.GenTableMapper">
-  <resultMap id="BaseResultMap" type="com.mall.gen.domain.GenTable">
+<mapper namespace="com.mall.generator.dao.GenTableMapper">
+  <resultMap id="BaseResultMap" type="com.mall.generator.domain.GenTable">
     <id column="table_id" jdbcType="BIGINT" property="tableId" />
     <result column="table_name" jdbcType="VARCHAR" property="tableName" />
     <result column="table_comment" jdbcType="VARCHAR" property="tableComment" />
@@ -86,7 +86,7 @@
     tpl_category, package_name, module_name, business_name, function_name, function_author,
     gen_type, gen_path, `options`, create_by, create_time, update_by, update_time, remark
   </sql>
-  <select id="selectByExample" parameterType="com.mall.gen.domain.GenTableExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.mall.generator.domain.GenTableExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -121,13 +121,13 @@
     delete from gen_table
     where table_id = #{tableId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mall.gen.domain.GenTableExample">
+  <delete id="deleteByExample" parameterType="com.mall.generator.domain.GenTableExample">
     delete from gen_table
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.mall.gen.domain.GenTable">
+  <insert id="insert" parameterType="com.mall.generator.domain.GenTable">
     insert into gen_table (table_id, `table_name`, table_comment,
       sub_table_name, sub_table_fk_name, class_name,
       tpl_category, package_name, module_name,
@@ -143,7 +143,7 @@
       #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
       #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mall.gen.domain.GenTable">
+  <insert id="insertSelective" parameterType="com.mall.generator.domain.GenTable">
     insert into gen_table
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tableId != null">
@@ -270,7 +270,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.mall.gen.domain.GenTableExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.mall.generator.domain.GenTableExample" resultType="java.lang.Long">
     select count(*) from gen_table
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -370,7 +370,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mall.gen.domain.GenTable">
+  <update id="updateByPrimaryKeySelective" parameterType="com.mall.generator.domain.GenTable">
     update gen_table
     <set>
       <if test="tableName != null">
@@ -433,7 +433,7 @@
     </set>
     where table_id = #{tableId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mall.gen.domain.GenTable">
+  <update id="updateByPrimaryKey" parameterType="com.mall.generator.domain.GenTable">
     update gen_table
     set `table_name` = #{tableName,jdbcType=VARCHAR},
       table_comment = #{tableComment,jdbcType=VARCHAR},

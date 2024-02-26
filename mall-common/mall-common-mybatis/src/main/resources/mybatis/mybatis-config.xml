@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <plugins>
+        <!--插入操作自动填充某些属性-->
         <plugin interceptor="com.mall.mybatis.interceptor.MybatisInsertAutoFillPlugin">
             <property name="createTime" value="T(java.time.LocalDateTime).now()"/>
             <property name="updateTime" value="T(java.time.LocalDateTime).now()"/>

@@ -16,6 +16,8 @@
         <module>mall-admin</module>
         <module>mall-mbg</module>
         <module>mall-gen</module>
+        <module>mall-generator</module>
+        <module>ruoyi-generator</module>
     </modules>
 
 

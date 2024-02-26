@@ -1,9 +1,6 @@
 package com.mall.mybatis.config;
 
-import com.mall.mybatis.interceptor.MybatisInsertAutoFillPlugin;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**

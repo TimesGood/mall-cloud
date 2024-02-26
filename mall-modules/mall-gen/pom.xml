@@ -67,7 +67,7 @@
                 <configuration>
                     <!--解决打包时报Unable to find main class。取消寻找模块main方法-->
                     <skip>false</skip>
-                    <mainClass>com.mall.gen.GenApplication</mainClass>
+                    <mainClass>com.mall.generator.GeneratorApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

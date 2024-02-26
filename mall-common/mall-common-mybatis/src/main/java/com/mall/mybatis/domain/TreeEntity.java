@@ -28,7 +28,7 @@ public class TreeEntity<T> extends BaseEntity {
     private Long parentId;
 
     /**
-     * 子部门
+     * 子菜单
      */
 
     private List<T> children = new ArrayList<>();

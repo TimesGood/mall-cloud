@@ -21,8 +21,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ResponseBody
-    @ExceptionHandler(value = ApiException.class)
-    public R handle(ApiException e) {
+    @ExceptionHandler(value = ServiceException.class)
+    public R handle(ServiceException e) {
         if (e.getErrorCode() != null) {
             return R.fail(e.getErrorCode());
         }

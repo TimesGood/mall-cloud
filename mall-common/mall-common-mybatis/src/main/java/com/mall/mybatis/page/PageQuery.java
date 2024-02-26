@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.Page;
-import com.mall.core.domain.OrderItem;
+import com.github.pagehelper.PageHelper;
 import com.mall.mybatis.utils.SqlUtil;
 import lombok.Data;
 
@@ -51,17 +51,17 @@ public class PageQuery implements Serializable {
      */
     public static final int DEFAULT_PAGE_SIZE = Integer.MAX_VALUE;
 
-    public Page<OrderItem> build() {
+    public <T> Page<T> startPage() {
         Integer pageNum = ObjectUtil.defaultIfNull(getPageNum(), DEFAULT_PAGE_NUM);
         Integer pageSize = ObjectUtil.defaultIfNull(getPageSize(), DEFAULT_PAGE_SIZE);
         if (pageNum <= 0) {
             pageNum = DEFAULT_PAGE_NUM;
         }
-        Page<OrderItem> page = new Page<>(pageNum, pageSize);
-        List<OrderItem> orderItems = buildOrderItem();
-        if (CollUtil.isNotEmpty(orderItems)) {
-            page.addAll(orderItems);
-        }
+        Page<T> page = PageHelper.startPage(pageNum, pageSize);
+        List<String> order = buildOrder();
+        if(CollUtil.isEmpty(order)) return page;
+        String orderStr = String.join(",", order);
+        page.setOrderBy(orderStr);
         return page;
     }
 
@@ -74,7 +74,7 @@ public class PageQuery implements Serializable {
      * {isAsc:"desc",orderByColumn:"id,createTime"} order by id desc,create_time desc
      * {isAsc:"asc,desc",orderByColumn:"id,createTime"} order by id asc,create_time desc
      */
-    private List<OrderItem> buildOrderItem() {
+    private List<String> buildOrder() {
         if (StrUtil.isBlank(orderByColumn) || StrUtil.isBlank(isAsc)) {
             return null;
         }
@@ -90,15 +90,15 @@ public class PageQuery implements Serializable {
             throw new RuntimeException("排序参数有误");
         }
 
-        List<OrderItem> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         // 每个字段各自排序
         for (int i = 0; i < orderByArr.length; i++) {
             String orderByStr = orderByArr[i];
             String isAscStr = isAscArr.length == 1 ? isAscArr[0] : isAscArr[i];
             if ("asc".equals(isAscStr)) {
-                list.add(OrderItem.asc(orderByStr));
+                list.add(orderByStr + " " + "asc");
             } else if ("desc".equals(isAscStr)) {
-                list.add(OrderItem.desc(orderByStr));
+                list.add(orderByStr + " " + "desc");
             } else {
                 throw new RuntimeException("排序参数有误");
             }

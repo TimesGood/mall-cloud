@@ -7,7 +7,7 @@ import com.mall.mybatis.page.PageQuery;
 public class Test {
     public static void main(String[] args) {
         PageQuery query = new PageQuery();
-        Page<OrderItem> build = query.build();
+        Page<Object> build = query.build();
         System.out.println(build);
 
     }

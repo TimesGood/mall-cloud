@@ -1,0 +1,33 @@
+CREATE TABLE `generator_config` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) DEFAULT NULL,
+    `project_folder` varchar(255) DEFAULT NULL COMMENT '项目根目录',
+    `model_package` varchar(255) DEFAULT NULL COMMENT '实体类包名（com.xxx）',
+    `model_target_folder` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '实体类存放路径（src/main/java）',
+    `mapper_package` varchar(255) DEFAULT NULL COMMENT 'mapper接口包名（com.xxx）',
+    `mapper_target_folder` varchar(255) DEFAULT NULL COMMENT 'mapper接口存放路径（src/main/java）',
+    `mapper_name` varchar(255) DEFAULT NULL COMMENT 'mapper接口名（默认驼峰式表名+Mapper）',
+    `xml_package` varchar(255) DEFAULT NULL COMMENT 'xml映射文件包名',
+    `xml_target_folder` varchar(255) DEFAULT NULL COMMENT 'xml映射文件存放路径（src/main/resource）',
+    `table_name` varchar(255) DEFAULT NULL COMMENT '表名·',
+    `domain_name` varchar(255) DEFAULT NULL COMMENT '实体类名',
+    `offset_limit` char(1) DEFAULT NULL COMMENT '是否开启分页',
+    `comment` char(1) DEFAULT NULL COMMENT '是否开启注释',
+    `override_xml` char(1) DEFAULT NULL COMMENT '是否覆盖已存在的xml（默认在原文件上追加）',
+    `nee_for_update` char(1) DEFAULT NULL COMMENT '是否使用行锁',
+    `annotation_dao` char(1) DEFAULT NULL COMMENT '是否使用@Repository',
+    `jpa_nnotation` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '是否使用jpa注解',
+    `use_actual_column_names` char(1) DEFAULT NULL COMMENT '是否使用实际列名（默认驼峰式）',
+    `use_example` char(1) DEFAULT NULL COMMENT '是否使用Example',
+    `generate_keys` varchar(255) DEFAULT NULL COMMENT '主键',
+    `encoding` varchar(255) DEFAULT NULL COMMENT '表编码',
+    `use_table_name_alias` char(1) DEFAULT NULL COMMENT '是否使用表名为别名',
+    `use_dao_extend_style` char(1) DEFAULT NULL COMMENT '是否使用公共基类',
+    `use_schema_prefix` char(1) DEFAULT NULL,
+    `jsr_310_support` char(1) DEFAULT NULL,
+    `use_lombok_plugin` char(1) DEFAULT NULL COMMENT '是否使用lombok',
+    `need_to_string` char(1) DEFAULT NULL COMMENT '是否生成toString',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `generator_config` (`id`, `name`, `project_folder`, `model_package`, `model_target_folder`, `mapper_package`, `mapper_target_folder`, `mapper_name`, `xml_package`, `xml_target_folder`, `table_name`, `domain_name`, `offset_limit`, `comment`, `override_xml`, `nee_for_update`, `annotation_dao`, `jpa_nnotation`, `use_actual_column_names`, `use_example`, `generate_keys`, `encoding`, `use_table_name_alias`, `use_dao_extend_style`, `use_schema_prefix`, `jsr_310_support`, `use_lombok_plugin`, `need_to_string`) VALUES (1, '测试', 'D:/test', 'com.test', 'src/main/java', 'com.test', 'src/main/java', 'GeneratorConfigMapper', 'com.test', 'src/main/resources', 'generator_config', 'GeneratorConfig', '1', '1', '1', '1', '1', '1', '0', '1', 'id', 'utf-8', '1', '1', '1', '1', '1', '1');

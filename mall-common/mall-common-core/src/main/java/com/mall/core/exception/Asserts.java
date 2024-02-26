@@ -8,10 +8,10 @@ import com.mall.core.api.IErrorCode;
  */
 public class Asserts {
     public static void fail(String message) {
-        throw new ApiException(message);
+        throw new ServiceException(message);
     }
 
     public static void fail(IErrorCode errorCode) {
-        throw new ApiException(errorCode);
+        throw new ServiceException(errorCode);
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.generator.dao.GeneratorConfigDao">
+
+    <resultMap id="BaseResultMap" type="com.mall.generator.domain.GeneratorConfig">
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="project_folder" jdbcType="VARCHAR" property="projectFolder" />
+        <result column="model_package" jdbcType="VARCHAR" property="modelPackage" />
+        <result column="model_target_folder" jdbcType="VARCHAR" property="modelTargetFolder" />
+        <result column="mapper_package" jdbcType="VARCHAR" property="mapperPackage" />
+        <result column="mapper_target_folder" jdbcType="VARCHAR" property="mapperTargetFolder" />
+        <result column="mapper_name" jdbcType="VARCHAR" property="mapperName" />
+        <result column="xml_package" jdbcType="VARCHAR" property="xmlPackage" />
+        <result column="xml_target_folder" jdbcType="VARCHAR" property="xmlTargetFolder" />
+        <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+        <result column="domain_name" jdbcType="VARCHAR" property="domainName" />
+        <result column="generate_keys" jdbcType="VARCHAR" property="generateKeys" />
+        <result column="encoding" jdbcType="VARCHAR" property="encoding" />
+        <result column="offset_limit" jdbcType="CHAR" property="offsetLimit" />
+        <result column="comment" jdbcType="CHAR" property="comment" />
+        <result column="override_xml" jdbcType="CHAR" property="overrideXML" />
+        <result column="need_to_string" jdbcType="CHAR" property="needToString" />
+        <result column="use_lombok_plugin" jdbcType="CHAR" property="useLombokPlugin" />
+        <result column="need_for_update" jdbcType="CHAR" property="needForUpdate" />
+        <result column="annotation_dao" jdbcType="CHAR" property="annotationDAO" />
+        <result column="jpa_annotation" jdbcType="CHAR" property="jpaAnnotation" />
+        <result column="use_actual_column_names" jdbcType="CHAR" property="useActualColumnNames" />
+        <result column="use_example" jdbcType="CHAR" property="useExample" />
+        <result column="use_table_name_alias" jdbcType="CHAR" property="useTableNameAlias" />
+        <result column="use_dao_extend_style" jdbcType="CHAR" property="useDAOExtendStyle" />
+        <result column="use_schema_prefix" jdbcType="CHAR" property="useSchemaPrefix" />
+        <result column="jsr_310_support" jdbcType="CHAR" property="jsr310Support" />
+    </resultMap>
+    <select id="selectList" parameterType="String" resultMap="BaseResultMap">
+        select * from generator_config
+    </select>
+</mapper>
