@@ -4,6 +4,7 @@ import com.mall.swagger.config.properties.SwaggerProperties;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
@@ -38,7 +39,7 @@ public class BaseSwaggerConfig {
      * 如果还想保留该默认规则，请调用createDocker构造其他Api分组
      * @return
      */
-    @Bean
+    @ConditionalOnMissingBean(Docket.class)
     public Docket defaultApi(){
         SwaggerProperties build = SwaggerProperties.builder()
                 .groupName("defaultApi")
